@@ -1,0 +1,26 @@
+{
+  "name": "sdc-passengers",
+  "version": "1.0.0",
+  "description": "The project description",
+  "main": ".eslintrc.js",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "nodemon": "^1.14.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "server-dev": "nodemon server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/francocatania/SDC-Passengers.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/francocatania/SDC-Passengers/issues"
+  },
+  "homepage": "https://github.com/francocatania/SDC-Passengers#readme"
+}
