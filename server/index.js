@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { queue } = require('../queue.js');
 const { db } = require('../database/index.js');
 const helpers = require('./serverHelpers.js');
 
