@@ -21,7 +21,7 @@ let sendUserTrip = (userTrip, res) => { //sends trip to Matching service - this 
     // console.log(response.data);
   })
   .catch(error => {
-    console.log('fallo sendUserTrip');
+    console.log('sendUserTrip failed');
     console.log(error);
     res.sendStatus(503);
   })
@@ -29,12 +29,11 @@ let sendUserTrip = (userTrip, res) => { //sends trip to Matching service - this 
 
 let matches = {};
 let pollingFor = (userId, res) => {
-  let poll = setInterval(() => {
+  let pole = setInterval(() => {
       if(matches[userId]) {
         res.send(matches[userId].driverInfo);
-        clearInterval(poll);
-      } else {
-        console.log('match not found, polling...')
+        clearInterval(pole);
+        //sacar userId de la waitlist
       }
     }, 250
   );
