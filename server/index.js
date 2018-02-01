@@ -23,11 +23,28 @@ app.post('/transactions', (req, res) => {
   helpers.sendTransaction(req.body, res);
 })
 
-app.get('/driver/:userId/:location/:destination', (req, res) => {
-  // add user to the queue
-  
+//MATCHING - eventually this is going to be implemented with a queue.
 
-  // 
+app.get('/driver/:userId/:origin/:destination', (req, res) => { // esto o en el body?
+  let userTrip = {
+    "userId": req.params.userId,
+    "origin": req.params.origin,
+    "destination": req.params.destination,
+    "created_at": Date.now()
+  }
+  console.log(userTrip);
+  helpers.sendUserTrip(userTrip, res);
+
+  //Polling
+  let userId = req.params.userId;
+  helpers.pollingFor(userId, res);
 })
+app.post('/match', (req, res) => {
+  let userId = req.body.userId;
+  helpers.matches[userId] = req.body;
+  console.log(helpers.matches);
+  res.sendStatus(200);
+})
+
 
 app.listen(3000, () => console.log('app listening on port 3000!'))
