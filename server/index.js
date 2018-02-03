@@ -32,7 +32,12 @@ app.get('/driver/:userId/:origin/:destination', (req, res) => { // esto o en el 
   waitingUser.findOne({ userId: userId}, function (err, doc){
     if (err) { console.errror(err) }
     if (doc === null) {
-      knex.raw(`select id, full_name, phone_number from users where id=${userId}`) //try sending the whole row with select *
+      knex.raw(`select id, full_name, phone_number from users where id=${userId}`) 
+      //try sending the whole row with select *
+      // try knex('users').where({
+        // first_name: 'Test',
+        // last_name:  'User'
+        // }).select('id')
         .then(response => {
           let userInfo = response.rows[0];
           let userTrip = {
@@ -91,5 +96,15 @@ app.get('/waitlistLength', (req,res) => {
     } else {throw err;}
   });
 })
+
+
+//Add User
+app.post('/users', (req, res) => {
+  let newUser = req.body;
+  knex('users').insert(newUser)
+    .then(response => res.send('Successfully added new User to database'))
+    .catch(err => console.error(err))
+})
+
 
 app.listen(3000, () => console.log('app listening on port 3000!'))
