@@ -36,3 +36,4 @@ dist/
 node_modules/
 bower_components/
 SDC Todos
+newRelicAccessKey.js
