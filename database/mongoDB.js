@@ -9,7 +9,7 @@ mongoDB.once('open', function() {
 });
 
 var waitingUserSchema = mongoose.Schema({
-  userId: { type: Number, required: true, index: true, unique: true },
+  userInfo: { type: Object, required: true, index: true, unique: true },
   created_at: { type: Date, default: Date.now },
   origin: Array,
   destination: Array,
