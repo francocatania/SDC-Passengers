@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { waitingUser } = require('../database/mongoDB.js');
 const PRICING_DIR = 'http://localhost:8080';
 const MATCHING_DIR = 'http://localhost:5000';
 
@@ -32,8 +33,13 @@ let pollingFor = (userId, res) => {
   let pole = setInterval(() => {
       if(matches[userId]) {
         res.send(matches[userId].driverInfo);
+        delete matches[userId];
         clearInterval(pole);
-        //sacar userId de la waitlist
+        console.log('Driver on its way!');
+        waitingUser.findOne({userId: userId}).remove().exec( (err, data) => {
+          if (err) {console.error(err)}
+          else {console.log(`Removed user ${userId} from the waitlist.`)}
+        });
       }
     }, 250
   );
