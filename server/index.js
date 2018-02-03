@@ -36,6 +36,7 @@ app.get('/driver/:userId/:origin/:destination', (req, res) => { // esto o en el 
         .then(response => {
           let userInfo = response.rows[0];
           let userTrip = {
+            "userId": userId,
             "userInfo": userInfo,
             "created_at": Date.now(),
             "origin": JSON.parse(req.params.origin),
@@ -67,9 +68,9 @@ app.get('/driver/:userId/:origin/:destination', (req, res) => { // esto o en el 
 });
 
 app.post('/match', (req, res) => {
+  console.log('Driver found!');
   let userId = req.body.userInfo.id;
   helpers.matches[userId] = req.body;
-  console.log(helpers.matches);
   res.sendStatus(200);
 })
 
