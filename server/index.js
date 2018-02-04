@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
 const { mongoDB , waitingUser } = require('../database/mongoDB.js');

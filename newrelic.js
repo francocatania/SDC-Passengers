@@ -1,3 +1,5 @@
+const { newRelicAccessCode } = require('./newRelicAccessKey.js');
+
 'use strict'
 /**
  * New Relic agent configuration.
@@ -9,11 +11,11 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['My Application'],
+  app_name: ['SDC-Passengers Service'],
   /**
    * Your New Relic license key.
    */
-  license_key: 'license key here',
+  license_key: newRelicAccessCode,
   logging: {
     /**
      * Level at which to log. 'trace' is most useful to New Relic when diagnosing
