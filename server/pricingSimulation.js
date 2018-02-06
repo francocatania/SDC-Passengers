@@ -17,15 +17,13 @@ let sendSurgeRatio = () => {
     "surgeId": Math.floor(Math.random() * 500),
     "surgeRatio": Math.floor(Math.random() * 4 + 1),
   })
-  .then(response => {
-    console.log(response.statusText);
-  })
   .catch(error => {
-    console.log(error);
+    // console.log(error);
+    throw error;
   })
 };
 
-// setInterval(sendSurgeRatio, 1000);
+setInterval(sendSurgeRatio, 3000);
 
 
 

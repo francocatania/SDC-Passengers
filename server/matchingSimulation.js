@@ -11,17 +11,16 @@ const PASSENGERS_DIR = 'http://localhost:3000';
 app.post('/trips', (req, res) => {
   let matchInfo = req.body;
   matchInfo.driverInfo = {"name": 'Carlos', "car": 'Corolla'};
-  setTimeout(() => match(matchInfo), 2000);
+  // setTimeout(() => match(matchInfo), 1000);
+  match(matchInfo);
   res.send('User added to queue');
 })
 
 let match = (tripInfo) => {
   axios.post(`${PASSENGERS_DIR}/match`, tripInfo)
-  .then(response => {
-    console.log(response.statusText);
-  })
   .catch(error => {
-    console.log(error);
+    console.log('ERROR');
+    throw error;
   })
 }
 
