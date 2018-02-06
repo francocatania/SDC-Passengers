@@ -1,0 +1,63 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 30
+      arrivalRate: 10
+      rampTo: 100
+      name: "Application Warmup"
+    - duration: 300
+      arrivalRate: 10
+      rampTo: 150
+      name: "2min Heavy Load"
+  payload:
+    - path: "./artilleryData.csv"
+      fields:
+        - "userId"
+        - "origX"
+        - "origY"
+        - "destinX"
+        - "destinY"
+      order: "sequence"
+scenarios:
+  - name: "Get quote and Reject"
+    flow:
+      - get:
+          url: "/price"
+          capture: 
+            - json: "$.surgeId"
+              as: "surgeId"
+            - json: "$.surgeRatio"
+              as: "surgeRatio"
+      - think: 2
+      - post: 
+          url: "/transactions"
+          json:
+            userId: "{{userId}}"
+            accepted: false
+            surgeId: "{{surgeId}}"
+            surgeRatio: "{{surgeRatio}}"
+    weight: 1
+  
+  - name: "Get quote and Accept"
+    flow:
+      - get:
+          url: "/price"
+          capture: 
+            - json: "$.surgeId"
+              as: "surgeId"
+            - json: "$.surgeRatio"
+              as: "surgeRatio"
+      - think: 2
+      - post: 
+          url: "/transactions"
+          json:
+            userId: "{{userId}}"
+            accepted: true
+            surgeId: "{{surgeId}}"
+            surgeRatio: "{{surgeRatio}}"
+      - get: 
+          url: "/driver?userId={{userId}}&origX={{origX}}&origY={{origY}}&destinX={{destinX}}&destinY={{destinY}}"
+    weight: 9
+
+
+      
