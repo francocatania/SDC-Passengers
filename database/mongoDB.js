@@ -12,8 +12,10 @@ var waitingUserSchema = mongoose.Schema({
   userId: { type: Number, required: true, index: true, unique: true },
   userInfo: { type: Object, required: true },
   created_at: { type: Date, default: Date.now },
-  origin: Array,
-  destination: Array,
+  orig_x: Number,
+  orig_y: Number,
+  destin_x: Number,
+  destin_y: Number,
 });
 var waitingUser = mongoose.model('waiting user', waitingUserSchema);
 
