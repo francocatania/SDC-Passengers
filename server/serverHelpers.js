@@ -34,7 +34,7 @@ let pollingFor = (userId, res) => {
           if (err) {console.error(err)}
         });
       }
-    }, 250
+    }, 10
   );
 }
 
