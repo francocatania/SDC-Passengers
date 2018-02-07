@@ -1,13 +1,13 @@
 config:
   target: "http://localhost:3000"
   phases:
-    - duration: 30
+    - duration: 60
       arrivalRate: 10
-      rampTo: 100
+      rampTo: 50
       name: "Application Warmup"
     - duration: 300
-      arrivalRate: 10
-      rampTo: 150
+      arrivalRate: 15
+      rampTo: 100
       name: "2min Heavy Load"
   payload:
     - path: "./artilleryData.csv"
