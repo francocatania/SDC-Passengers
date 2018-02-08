@@ -9,11 +9,11 @@ const helpers = require('./serverHelpers.js');
 const app = express();
 app.use(bodyParser.json())
 
+//SHOULD BE IN REDIS
 let surgeRatio = {
   "surgeId": 1234,
   "surgeRatio": 1.35,
 }
-
 
 //PRICING
 app.get('/price', (req, res) => res.send(surgeRatio))
@@ -114,4 +114,7 @@ app.post('/users', (req, res) => {
 })
 
 
-app.listen(3000, () => console.log('app listening on port 3000!'))
+app.listen(3000, () => console.log('app listening on port 3000!'));
+
+module.exports.app = app;
+module.exports.surgeRatio = surgeRatio;

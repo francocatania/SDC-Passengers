@@ -5,7 +5,7 @@ mongoose.connect('mongodb://localhost/sdc_passengers');
 var mongoDB = mongoose.connection;
 mongoDB.on('error', console.error.bind(console, 'connection error:'));
 mongoDB.once('open', function() {
-  console.log('we\'re connected!');
+  console.log('Connected to MongoDB');
 });
 
 var waitingUserSchema = mongoose.Schema({
