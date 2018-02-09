@@ -1,30 +1,22 @@
 const axios = require('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const redisClient = require('../cache/redis.js');
 
 const app = express();
 app.use(bodyParser.json())
-const PASSENGERS_DIR = 'http://localhost:3000';
-
 
 app.post('/transactions', (req, res) => {
-  res.send('Todo joya hermano');
+  res.send('Transaction Received');
 })
 
-let sendSurgeRatio = () => {
-  axios.post(`${PASSENGERS_DIR}/surgeRatio`, {
-    "surgeId": Math.floor(Math.random() * 500),
-    "surgeRatio": Math.floor(Math.random() * 4 + 1),
-  })
-  .catch(error => {
-    // console.log(error);
-    throw error;
-  })
-};
+let updateSurgeRatio = () => {
+  let surgeId = Math.floor(Math.random() * 500);
+  let surgeRatio =  Math.floor(Math.random() * 4 + 1);
+  redisClient.hmset('surgeRatio', "surgeId", surgeId, "surgeRatio", surgeRatio);
+}
 
-setInterval(sendSurgeRatio, 3000);
-
+setInterval(updateSurgeRatio, 10000);
 
 
 app.listen(8080, () => console.log('app listening on port 8080!'))

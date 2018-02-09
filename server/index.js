@@ -10,17 +10,14 @@ const redisClient = require('../cache/redis.js');
 const app = express();
 app.use(bodyParser.json())
 
+
 //PRICING
 app.get('/price', (req, res) => {
   redisClient.hgetall('surgeRatio', function(err, reply) {
     res.send(reply)
   })
 })
-// PRICING SETS SURGERATIO IN REDIS
-// app.post('/surgeRatio', (req,res) => {
-//   surgeRatio = req.body;
-//   res.sendStatus(202);
-// })
+
 app.post('/transactions', (req, res) => {
   helpers.sendTransaction(req.body, res);
 })
