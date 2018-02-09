@@ -16,7 +16,9 @@
     "mongoose": "^5.0.2",
     "newrelic": "^2.7.0",
     "nodemon": "^1.14.11",
-    "pg": "^7.4.1"
+    "pg": "^7.4.1",
+    "redis": "^2.8.0",
+    "siege": "^0.2.0"
   },
   "devDependencies": {},
   "scripts": {
