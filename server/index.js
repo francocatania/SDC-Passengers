@@ -4,23 +4,23 @@ const bodyParser = require('body-parser');
 const { mongoDB , waitingUser } = require('../database/mongoDB.js');
 const knex  = require('../database/pg.js');
 const helpers = require('./serverHelpers.js');
+const redisClient = require('../cache/redis.js');
 
 
 const app = express();
 app.use(bodyParser.json())
 
-//SHOULD BE IN REDIS
-let surgeRatio = {
-  "surgeId": 1234,
-  "surgeRatio": 1.35,
-}
-
 //PRICING
-app.get('/price', (req, res) => res.send(surgeRatio))
-app.post('/surgeRatio', (req,res) => {
-  surgeRatio = req.body;
-  res.sendStatus(202);
+app.get('/price', (req, res) => {
+  redisClient.hgetall('surgeRatio', function(err, reply) {
+    res.send(reply)
+  })
 })
+// PRICING SETS SURGERATIO IN REDIS
+// app.post('/surgeRatio', (req,res) => {
+//   surgeRatio = req.body;
+//   res.sendStatus(202);
+// })
 app.post('/transactions', (req, res) => {
   helpers.sendTransaction(req.body, res);
 })
@@ -117,4 +117,4 @@ app.post('/users', (req, res) => {
 app.listen(3000, () => console.log('app listening on port 3000!'));
 
 module.exports.app = app;
-module.exports.surgeRatio = surgeRatio;
+// module.exports.surgeRatio = surgeRatio;
